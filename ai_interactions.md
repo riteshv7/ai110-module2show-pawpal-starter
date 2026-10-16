@@ -34,3 +34,32 @@ Scheduler, plus main.py and two starter tests.
 **How I verified it:** Ran `python main.py` and checked the schedule,
 conflict warning, and recurrence output. Ran `python -m pytest` and both
 tests passed.
+
+## Phase 3: UI and backend integration
+
+**Tool:** Claude (chat)
+
+**Prompt:** I asked for the code to connect app.py to my classes in
+pawpal_system.py. I wanted forms for adding pets and tasks, and I needed
+the Owner to survive Streamlit's reruns.
+
+**What the AI produced:** A new app.py that imports Owner, Pet, Task, and
+Scheduler. It stores the Owner in st.session_state, wires the add-pet form
+to owner.add_pet() and the add-task form to pet.add_task(), and displays
+the schedule using Scheduler methods.
+
+**Key concept I learned:** Streamlit reruns the whole script on every
+click, so an Owner created at the top would be reset to empty each time.
+The check `if "owner" not in st.session_state` only creates the Owner the
+first time, and later runs reuse the one in the session.
+
+**How I verified it:** I ran `streamlit run app.py` and tested in the
+browser: [list what you actually did, for example "added a pet named
+Biscuit and it appeared under Your pets", "added two tasks at 08:00 and a
+conflict warning appeared", "marked a daily task complete and a message
+said the next one was scheduled for tomorrow"].
+
+**What I noticed / changed:** [One honest thing, for example "A full
+browser refresh resets the data because session_state only lasts for one
+browser session. I decided not to add persistence for now," or any bug
+you hit and how you fixed it.]
