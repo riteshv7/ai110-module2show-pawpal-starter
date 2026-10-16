@@ -12,6 +12,20 @@ A busy pet owner needs help staying consistent with pet care. They want an assis
 
 Your job is to design the system first (UML), then implement the logic in Python, then connect it to the Streamlit UI.
 
+## ✨ Features
+
+- **Multi-pet management:** one owner, many pets, each with its own tasks
+- **Sorting by time:** schedules always display in chronological order
+- **Filtering:** view tasks by pet or by pending/completed status
+- **Conflict warnings:** pending tasks at the same date and time are
+  flagged with a readable warning instead of an error
+- **Daily and weekly recurrence:** completing a recurring task
+  automatically creates the next occurrence
+- **Input validation:** malformed times, unknown frequencies or priorities,
+  and duplicate pet names are rejected
+- **Streamlit UI:** forms to add pets and tasks, a sorted schedule table,
+  and a mark-complete button
+
 ## What you will build
 
 Your final app should:
@@ -132,12 +146,37 @@ durations, and the Streamlit UI is tested only by hand.
 
 ## 📸 Demo Walkthrough
 
-Describe your app in numbered steps so a reader can follow along without watching a video:
+**Main UI features:** add a pet, schedule tasks with a time, repeat
+frequency, priority and duration, view today's schedule, filter it, and
+mark tasks complete.
 
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
+**Example workflow:**
+1. Run `streamlit run app.py` and add a pet named Biscuit.
+2. Schedule a daily "Morning walk" at 07:30 for Biscuit.
+3. Add a second pet, Mochi, and schedule two tasks at 08:00.
+4. View today's schedule: tasks appear sorted by time, and a warning
+   shows the 08:00 conflict.
+5. Mark the morning walk complete: a new walk is scheduled for tomorrow.
 
-**Screenshot or video** *(optional)*: <!-- Insert a screenshot or link to a demo video here -->
+**Key Scheduler behaviors shown:** sorting (`sort_by_time`), conflict
+warnings (`detect_conflicts`), filtering (`filter_tasks`), and daily
+recurrence (`mark_task_complete`).
+
+**Sample CLI output from `main.py`:**
+
+```
+=== Today's Schedule for Jordan (2026-10-16) ===
+
+Sorted by time
+--------------------------------------------------------------
+  07:30  [ ]  Biscuit  Morning walk           daily  high
+  08:00  [ ]  Mochi    Breakfast              daily  medium
+  08:00  [ ]  Mochi    Flea medication        weekly high
+  14:15  [ ]  Mochi    Vet appointment        once   medium
+  18:00  [ ]  Biscuit  Evening walk           daily  high
+
+Conflict check:
+  WARNING: Conflict on 2026-10-16 at 08:00: Breakfast (Mochi), Flea medication (Mochi)
+
+Completed 'Morning walk'. Next occurrence created for 2026-10-17.
+```
