@@ -85,19 +85,41 @@ PawPal+ is built from four classes. `Task`, `Pet`, and `Owner` are dataclasses t
 
 ## 🧪 Testing PawPal+
 
-```bash
-# Run the full test suite:
-pytest
-
-# Run with coverage:
-pytest --cov
-```
-
-Sample test output:
+Run the test suite with:
 
 ```
-# Paste your pytest output here
+python -m pytest
 ```
+
+**What the tests cover:**
+- Task completion and adding tasks to a pet
+- Sorting tasks chronologically by time
+- Today's schedule across multiple pets (excludes other days)
+- Recurrence: daily tasks create a next-day task, weekly tasks add 7 days,
+  one-time tasks don't repeat, and completing twice doesn't duplicate
+- Conflict detection: same-time tasks are flagged, different times and
+  completed tasks are not
+- Filtering by pet name and completion status
+- Edge cases: empty owner or pet with no tasks, invalid time format,
+  duplicate pet names, and get_all_tasks() returning a copy
+
+**Sample test output:**
+
+```
+======================================================================= test session starts =======================================================================
+platform darwin -- Python 3.13.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/riteshverma/Desktop/ai110-module2show-pawpal-starter
+plugins: anyio-4.15.1
+collected 17 items                                                                                                                                                
+
+tests/test_pawpal.py .................                                                                                                                      [100%]
+
+======================================================================= 17 passed in 0.03s =============================================================
+```
+
+**Confidence Level:** ⭐⭐⭐⭐ (4/5). All tests pass and cover the core
+behaviors, but conflict detection only checks exact times, not overlapping
+durations, and the Streamlit UI is tested only by hand.
 
 ## 📐 Smarter Scheduling
 
