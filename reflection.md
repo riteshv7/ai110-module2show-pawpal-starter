@@ -69,13 +69,28 @@ Rejected:
 
 **a. How you used AI**
 
-- How did you use AI tools during this project (for example: design brainstorming, debugging, refactoring)?
-- What kinds of prompts or questions were most helpful?
+I used my AI assistant for design review, code generation, and testing
+help. Early on I wrote my own class list (Task, Pet, Owner, Scheduler),
+then asked the AI to review my skeleton and list problems without
+rewriting the code. That prompt worked best because it gave me a list of
+options to judge instead of code I would have just pasted in. I also used
+it to explain the plan for each phase, and I used separate chat sessions
+for design review and implementation so the conversations stayed focused.
 
 **b. Judgment and verification**
 
-- Describe one moment where you did not accept an AI suggestion as-is.
-- How did you evaluate or verify what the AI suggested?
+The AI's review gave 16 suggestions, and I did not accept them all. I
+rejected adding owner constraints, a separate Plan class that explains
+itself, and unique task IDs, because they add classes or fields beyond what
+this project needs. I accepted a few changes: Pet.add_task() now sets
+task.pet_name automatically, Task has duration_minutes and priority fields,
+and times are validated as zero-padded "HH:MM" strings. I kept times as
+strings instead of switching to datetime.time because sorting works fine
+for zero-padded strings and it keeps the code simpler.
+
+I verified the result by running main.py and checking the printed schedule,
+conflict warning, and recurrence message by eye, and by running pytest
+(python -m pytest), where both tests passed.
 
 ---
 
