@@ -54,12 +54,11 @@ The check `if "owner" not in st.session_state` only creates the Owner the
 first time, and later runs reuse the one in the session.
 
 **How I verified it:** I ran `streamlit run app.py` and tested in the
-browser: [list what you actually did, for example "added a pet named
-Biscuit and it appeared under Your pets", "added two tasks at 08:00 and a
-conflict warning appeared", "marked a daily task complete and a message
-said the next one was scheduled for tomorrow"].
+browser. I added a pet named Biscuit and it appeared under "Your pets".
+I added two tasks at 08:00 and a yellow conflict warning appeared. I
+marked a daily task complete and a message said the next one was
+scheduled for tomorrow.
 
-**What I noticed / changed:** [One honest thing, for example "A full
-browser refresh resets the data because session_state only lasts for one
-browser session. I decided not to add persistence for now," or any bug
-you hit and how you fixed it.]
+**What I noticed:** Refreshing the browser page resets all the data,
+because session_state only lasts for one browser session. I left
+persistence out for now because it's an optional extension.
