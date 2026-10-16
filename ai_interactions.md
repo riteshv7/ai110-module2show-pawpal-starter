@@ -85,3 +85,30 @@ matching is easier to test and explain.
 
 **How I verified it:** Re-ran `python -m pytest` and `python main.py` and
 confirmed the output matched what I had before.
+
+## Phase 5: Testing and verification
+
+**Tool:** Claude
+
+**Prompt:** I asked for a full test suite for the scheduler covering
+sorting, recurrence, conflict detection, and edge cases, building on the
+two basic tests I already had.
+
+**What the AI produced:** A replacement for tests/test_pawpal.py with 17
+tests. It covers chronological sorting, today's schedule across multiple
+pets, daily and weekly recurrence, one-time tasks not repeating, no
+duplicate recurrence when a task is completed twice, same-time conflict
+detection, completed tasks not conflicting, filtering by pet and status,
+and edge cases (an owner with no pets, a pet with no tasks, an invalid
+time like "9:00", duplicate pet names, and get_all_tasks() returning a
+copy).
+
+**How I verified it:** I ran `python -m pytest` and all 17 tests passed. I
+also read each test to check that it asserts real behavior and not just
+that the code runs. For example, the recurrence test checks that the new
+task's due date is exactly one day later and that it was added to the
+pet's list.
+
+**What I noticed:** The tests only check exact-time conflicts, which
+matches my design choice in reflection 2b. The Streamlit UI isn't covered
+by automated tests, so I tested it by hand in the browser.
