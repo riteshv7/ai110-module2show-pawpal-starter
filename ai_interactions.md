@@ -126,9 +126,8 @@ duration_minutes, __post_init__, the new method signatures, and the
 Scheduler-to-Task "creates next occurrence" relationship), plus drafts of
 the README sections and reflection answers.
 
-**What I changed:** [say what you edited, for example "rewrote the
-reflection answers in my own words" or "changed the confidence rating
-to 4 stars because the UI is only tested by hand"].
+**What I changed:** I rewrote the reflection answers in my own words and
+changed the confidence rating in the README to match what I tested.
 
 **How I verified it:** I checked that uml_final.mmd matches the final
 pawpal_system.py, previewed the README to confirm the code blocks render,
