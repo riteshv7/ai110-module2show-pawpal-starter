@@ -62,3 +62,26 @@ scheduled for tomorrow.
 **What I noticed:** Refreshing the browser page resets all the data,
 because session_state only lasts for one browser session. I left
 persistence out for now because it's an optional extension.
+
+## Phase 4: Algorithmic layer
+
+**Tool:** Claude Code
+
+**Prompt:** "How could `detect_conflicts` be simplified for better
+readability or performance?"
+
+**What the AI suggested:** Four readability changes (defaultdict, a list
+comprehension, sorting only conflicting slots, and a helper method), plus
+a note that true overlap detection using duration_minutes would be a
+bigger improvement.
+
+**What I accepted:** defaultdict, because it removes the untyped
+`slots = {}` and the `setdefault` call.
+
+**What I rejected:** The list comprehension, because it packs the
+grouping, filtering, and message formatting into one expression that is
+harder to read. I also rejected overlap detection, because exact-time
+matching is easier to test and explain.
+
+**How I verified it:** Re-ran `python -m pytest` and `python main.py` and
+confirmed the output matched what I had before.

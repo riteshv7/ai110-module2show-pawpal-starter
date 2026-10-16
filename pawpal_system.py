@@ -1,6 +1,7 @@
 """PawPal+ logic layer: Task, Pet, Owner and Scheduler."""
 
 import re
+from collections import defaultdict
 from dataclasses import dataclass, field
 from datetime import date, timedelta
 from typing import List, Optional
@@ -103,11 +104,11 @@ class Scheduler:
     def detect_conflicts(self, tasks: Optional[List[Task]] = None) -> List[str]:
         """Return warning messages for pending tasks sharing a date and time."""
         pool = self.owner.get_all_tasks() if tasks is None else tasks
-        slots = {}
+        slots = defaultdict(list)
         for task in pool:
             if task.completed:
                 continue
-            slots.setdefault((task.due_date, task.time), []).append(task)
+            slots[(task.due_date, task.time)].append(task)
 
         warnings = []
         for (due, time), group in sorted(slots.items()):
