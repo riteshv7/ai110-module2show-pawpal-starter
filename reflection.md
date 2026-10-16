@@ -55,13 +55,41 @@ Rejected:
 
 **a. Constraints and priorities**
 
-- What constraints does your scheduler consider (for example: time, priority, preferences)?
-- How did you decide which constraints mattered most?
+My scheduler considers four things: the time of day, the due date, whether
+a task is already completed, and which pet the task belongs to.
+
+- **Time:** Tasks are sorted by their "HH:MM" time, so the owner always
+  sees what to do next first.
+- **Due date:** Today's schedule only shows tasks due today, and
+  recurring tasks get a new due date when completed.
+- **Completion status:** Completed tasks are not flagged as conflicts, and
+  the schedule can be filtered to show only pending or completed tasks.
+- **Pet:** The scheduler reads tasks across all pets through
+  owner.get_all_tasks(), and tasks can be filtered by pet name.
+
+I decided time mattered most because the main problem for a busy pet owner
+is knowing what to do and when. Conflicts also depend on time, so sorting
+and conflict detection both build on it. Tasks also store priority and
+duration_minutes, but my scheduler does not use them yet. I kept the scope
+to sorting, filtering, conflicts, and recurrence, and left priority-based
+scheduling as a possible extension.
 
 **b. Tradeoffs**
 
-- Describe one tradeoff your scheduler makes.
-- Why is that tradeoff reasonable for this scenario?
+My scheduler only detects a conflict when two pending tasks have exactly
+the same date and time. It does not check overlapping durations, so a
+30-minute walk at 08:00 and a feeding at 08:15 are not flagged, even
+though the owner could not do both at once.
+
+This is reasonable for this project because exact-match detection is
+simple to read, simple to test, and cannot crash. The detect_conflicts
+method groups tasks into date-and-time slots and warns about any slot with
+more than one task. Checking overlaps would mean tracking each task's
+start and end time and comparing neighbors, which adds complexity and more
+edge cases. When I asked my AI assistant about simplifying
+detect_conflicts, it suggested overlap detection as a bigger improvement,
+and I chose not to add it. Since tasks already store duration_minutes,
+overlap detection would be a natural next step.
 
 ---
 
