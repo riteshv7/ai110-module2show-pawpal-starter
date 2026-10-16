@@ -4,8 +4,27 @@
 
 **a. Initial design**
 
-- Briefly describe your initial UML design.
-- What classes did you include, and what responsibilities did you assign to each?
+My initial UML has four classes: Task, Pet, Owner, and Scheduler.
+
+Three core actions a user should be able to do:
+1. Add a pet to their profile.
+2. Schedule a task (walk, feeding, medication, appointment) for a pet.
+3. View today's schedule, sorted by time, with warnings for conflicts.
+
+- **Task** (dataclass): represents one activity. It holds a description,
+  time ("HH:MM"), frequency (once/daily/weekly), due date, completion
+  status, and the pet it belongs to. It can mark itself complete.
+- **Pet** (dataclass): stores the pet's name, species, and its list of
+  tasks. It can add and remove tasks.
+- **Owner** (dataclass): holds the owner's name and list of pets. It can add
+  pets and return every task across all pets through get_all_tasks().
+- **Scheduler**: the "brain." It takes an Owner and reads tasks through
+  owner.get_all_tasks(), so it works across all pets. It builds the daily
+  schedule, sorts, filters, detects conflicts, and handles completing tasks.
+
+Relationships: an Owner has many Pets, a Pet has many Tasks, and the
+Scheduler reads from the Owner. I kept data (Task, Pet, Owner) separate from
+logic (Scheduler) so the scheduling rules live in one place.
 
 **b. Design changes**
 
