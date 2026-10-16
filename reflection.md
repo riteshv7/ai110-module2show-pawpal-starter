@@ -28,8 +28,26 @@ logic (Scheduler) so the scheduling rules live in one place.
 
 **b. Design changes**
 
-- Did your design change during implementation?
-- If yes, describe at least one change and why you made it.
+I asked my AI assistant to review my skeleton. It gave 16 suggestions, and
+I accepted a few and rejected most.
+
+Accepted:
+- Pet.add_task() now sets task.pet_name automatically. The AI pointed out
+  that a plain string can be left empty or drift from Pet.name, so the Pet
+  now fills it in.
+- I added duration_minutes and priority to Task, because the README asks
+  for them and sorting or dropping tasks needs them.
+- I kept time as an "HH:MM" string but will validate the format, because
+  "9:00" would sort after "10:00" as text. I rejected switching to
+  datetime.time because string sorting works fine for zero-padded times.
+- Recurrence will live in Scheduler.mark_task_complete(), not in Task,
+  so the logic is in one place.
+
+Rejected:
+- Owner constraints, a Plan class that explains itself, and task IDs.
+  These add classes or fields beyond the scope of this project.
+- Duration-based overlap detection. I'll check exact same-time matches
+  only, which is simpler.
 
 ---
 

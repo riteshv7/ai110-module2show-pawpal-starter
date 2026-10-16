@@ -44,15 +44,44 @@ pip install -r requirements.txt
 
 ## 🖥️ Sample Output
 
-Paste a sample of your app's CLI or Streamlit output here so a reader can see what a generated plan looks like:
+````
+=== Today's Schedule for Jordan (2026-10-16) ===
 
-```
-# e.g.:
-# Daily plan for Biscuit (Golden Retriever):
-#   08:00 — Morning walk (30 min) [priority: high]
-#   09:00 — Feeding (10 min) [priority: high]
-#   ...
-```
+Sorted by time
+--------------------------------------------------------------
+  07:30  [ ]  Biscuit  Morning walk           daily  high
+  08:00  [ ]  Mochi    Breakfast              daily  medium
+  08:00  [ ]  Mochi    Flea medication        weekly high
+  14:15  [ ]  Mochi    Vet appointment        once   medium
+  18:00  [ ]  Biscuit  Evening walk           daily  high
+
+Conflict check:
+  WARNING: Conflict on 2026-10-16 at 08:00: Breakfast (Mochi), Flea medication (Mochi)
+
+Filter: Mochi's tasks
+--------------------------------------------------------------
+  08:00  [ ]  Mochi    Breakfast              daily  medium
+  08:00  [ ]  Mochi    Flea medication        weekly high
+  14:15  [ ]  Mochi    Vet appointment        once   medium
+
+Completed 'Morning walk'. Next occurrence created for 2026-10-17.
+
+Filter: completed tasks
+--------------------------------------------------------------
+  07:30  [x]  Biscuit  Morning walk           daily  high
+
+Filter: pending tasks (all dates)
+--------------------------------------------------------------
+  07:30  [ ]  Biscuit  Morning walk           daily  high
+  08:00  [ ]  Mochi    Breakfast              daily  medium
+  08:00  [ ]  Mochi    Flea medication        weekly high
+  14:15  [ ]  Mochi    Vet appointment        once   medium
+  18:00  [ ]  Biscuit  Evening walk           daily  high
+  ````
+  ### Implementation summary
+
+PawPal+ is built from four classes. `Task`, `Pet`, and `Owner` are dataclasses that hold the data: an Owner has Pets, and a Pet has Tasks.
+`Scheduler` holds the logic and reads every pet's tasks through `owner.get_all_tasks()`, so it works across all pets. `main.py` is a CLI demo that checks this logic in the terminal before any UI is connected.
 
 ## 🧪 Testing PawPal+
 

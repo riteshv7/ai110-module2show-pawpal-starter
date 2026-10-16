@@ -1,40 +1,38 @@
 # AI Interactions Log
 
-> **Stretch features only.** Only fill in the sections that apply to stretch features you attempted. If you did not attempt a stretch feature, leave its section blank or delete it. This file is not required for the core project.
+# AI Interactions
 
----
+## Phase 1: Design review
 
-## Agent Workflow (SF7)
+**Tool:** Claude Code 
 
-> Document your experience using an AI agent (e.g., Cursor Agent, Claude, Copilot) to make multi-step changes autonomously.
+**Prompt:** "Review my skeleton in pawpal_system.py for a pet care
+scheduler. Are there missing relationships or potential logic bottlenecks?
+Don't rewrite the code, just list your suggestions."
 
-**What task did you give the agent?**
+**What the AI said:** It gave 16 suggestions, including: the Task-to-Pet
+link was only a string, Task had no duration or priority, times stored as
+strings can sort wrongly, and recurrence rules were undefined.
 
-<!-- Describe the goal you asked the agent to accomplish -->
+**What I accepted:**
+- Pet.add_task() sets task.pet_name automatically
+- Added duration_minutes and priority to Task
+- Validate "HH:MM" times instead of switching to datetime.time
 
-**What did the agent do?**
+**What I rejected:** Owner constraints, a Plan class that explains itself,
+and task IDs, because they add scope this project doesn't need.
 
-<!-- List the steps the agent took (files edited, commands run, etc.) -->
+## Phase 2: Core implementation
 
-**What did you have to verify or fix manually?**
+**Prompt:** I asked for a step-by-step guide to the whole project. Then,
+once my skeleton was in place, I asked for "the code to add in the
+pawpal system," meaning the full method implementations for Task, Pet,
+Owner, and Scheduler. I then asked what to do next, and it gave me
+main.py and the first two tests.
 
-<!-- Describe anything the agent got wrong or that required human review -->
+**What the AI produced:** Full implementations of Task, Pet, Owner, and
+Scheduler, plus main.py and two starter tests.
 
----
-
-## Prompt Comparison (SF11)
-
-> Compare two different prompts (or two different models) on the same task.
-
-| | Option A | Option B |
-|-|----------|----------|
-| **Model / tool used** | | |
-| **Prompt** | | |
-| **Response summary** | | |
-| **What was useful** | | |
-| **Problems noticed** | | |
-| **Decision** | | |
-
-**Which approach did you use in your final implementation and why?**
-
-<!-- Your conclusion -->
+**How I verified it:** Ran `python main.py` and checked the schedule,
+conflict warning, and recurrence output. Ran `python -m pytest` and both
+tests passed.
